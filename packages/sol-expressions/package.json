@@ -1,0 +1,15 @@
+{
+  "name": "sol-expressions",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "jest --watch",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "dependencies": {
+    "babel-plugin-jsx-sol-expressions": "^1.0.0",
+    "babel-plugin-transform-rename-import": "^2.3.0"
+  }
+}
