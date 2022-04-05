@@ -21,6 +21,16 @@ export function template(html, check) {
   return new Transform()
 }
 
+
+export function setAttribute(node, name, value) {
+  if (value == null) {
+    node[name] = undefined
+  }
+  else {
+    node[name] = value
+  }
+}
+
 export function insert(parent, accessor, marker, initial) {
   if (marker !== undefined && !initial) initial = []
   if (typeof accessor !== 'function') return insertExpression(parent, accessor, initial, marker)

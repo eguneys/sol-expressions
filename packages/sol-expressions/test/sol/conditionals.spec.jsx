@@ -6,7 +6,7 @@ describe('Test conditional operators', () => {
 
     S.root(() => {
       const s = S.data(0)
-      transform = <transform x={x() > 5 ? 500 : 300}/>
+      transform = <transform x={s() > 5 ? 500 : 300}/>
       expect(transform.x).toBe(300)
       s(7)
       expect(transform.x).toBe(500)

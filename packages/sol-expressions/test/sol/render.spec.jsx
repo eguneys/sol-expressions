@@ -1,6 +1,6 @@
 import * as r from '../../src/client'
 import * as S from 's-js'
-import { Transform } from 'soli2d'
+import { Transform, Vec2 } from 'soli2d'
 
 describe("render", () => {
 
@@ -13,7 +13,7 @@ describe("render", () => {
     const Component = () => <DynamicChild translate={Vec2.unit}/>
 
     const container = new Transform()
-    r.render(DynamicChild, container)
+    r.render(Component, container)
 
     expect(container._children[0].x).toBe(1)
     expect(container._children[0].y).toBe(1)

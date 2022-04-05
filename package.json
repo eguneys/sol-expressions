@@ -9,7 +9,7 @@
     "clean:packages": "lerna clean --yes",
     "clean:root": "rimraf node_modules",
     "test": "lerna run test --concurrency=1 --stream",
-    "testwatch": "lerna run testwatch --concurrency=1 --stream",
+    "watch": "lerna run watch --concurrency=1 --stream",
     "publish:release": "lerna run build && lerna publish",
     "report:coverage": "lerna run report:coverage --parallel",
     "bootstrap": "lerna bootstrap"
