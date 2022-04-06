@@ -4,3 +4,8 @@ const firstComponent = (
     <Component2/>
   </>
 )
+
+const twoComponent = (<>
+  <Component/>
+  <Component/>
+  </>)

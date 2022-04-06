@@ -153,7 +153,7 @@ function wrapDynamics(path, dynamics) {
           t.returnStatement(prevId)
         ])
       ),
-      t.objectExpression(identifiers.map(id => t.objectProperty(id, t.identifire('undefined'))))
+      t.objectExpression(identifiers.map(id => t.objectProperty(id, t.identifier('undefined'))))
     ])
   )
 }

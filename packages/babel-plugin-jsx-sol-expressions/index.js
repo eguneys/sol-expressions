@@ -373,6 +373,10 @@ function detectExpressions(children, index, config) {
   }
 }
 
+function nextChild(children, index) {
+  return children[index + 1] && (children[index + 1].id || nextChild(children, index + 1))
+}
+
 function createTemplate(path, result, wrap) {
   const config = getConfig(path);
 
@@ -518,7 +522,7 @@ function wrapDynamics(path, dynamics) {
           t__namespace.returnStatement(prevId)
         ])
       ),
-      t__namespace.objectExpression(identifiers.map(id => t__namespace.objectProperty(id, t__namespace.identifire('undefined'))))
+      t__namespace.objectExpression(identifiers.map(id => t__namespace.objectProperty(id, t__namespace.identifier('undefined'))))
     ])
   )
 }

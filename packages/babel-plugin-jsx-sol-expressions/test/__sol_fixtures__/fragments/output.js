@@ -3,3 +3,7 @@ const firstComponent = [
   _$createComponent(Component, {}),
   _$createComponent(Component2, {}),
 ];
+const twoComponent = [
+  _$createComponent(Component, {}),
+  _$createComponent(Component, {}),
+];

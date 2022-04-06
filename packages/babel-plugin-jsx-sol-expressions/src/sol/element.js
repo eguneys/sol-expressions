@@ -172,3 +172,7 @@ function detectExpressions(children, index, config) {
     }
   }
 }
+
+function nextChild(children, index) {
+  return children[index + 1] && (children[index + 1].id || nextChild(children, index + 1))
+}
