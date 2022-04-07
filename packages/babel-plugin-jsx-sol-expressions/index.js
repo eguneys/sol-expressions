@@ -585,8 +585,9 @@ function transformComponent(path) {
               t__namespace.blockStatement([t__namespace.returnStatement(expr.body)]),
               !t__namespace.isValidIdentifier(key)
           ));
-
-        } else { runningObject.push(t__namespace.objectProperty(id, value.expression)); }
+        } else { 
+          runningObject.push(t__namespace.objectProperty(id, value.expression)); 
+        }
       }
     }
 
@@ -608,6 +609,8 @@ function transformComponent(path) {
           [], 
           t__namespace.isExpression(body) ? t__namespace.blockStatement([t__namespace.returnStatement(body)]): body
         ));
+    } else {
+      runningObject.push(t__namespace.objectProperty(t__namespace.identifier('children'), childResult[0]));
     }
   }
 
@@ -653,6 +656,9 @@ function transformComponentChildren(children, config) {
       : t__namespace.arrowFunctionExpression([], transformedChildren);
       dynamic = true;
     }
+  } else {
+    transformedChildren = t__namespace.arrowFunctionExpression([], t__namespace.arrayExpression(transformedChildren));
+    dynamic = true;
   }
 
   return [transformedChildren, dynamic]
@@ -774,9 +780,7 @@ function transformNode(path, info = {}) {
       template: '',
       dynamic: true
     }
-  } else {
-    console.log('none', node);
-  }
+  } else ;
 }
 
 var postprocess = path => {

@@ -102,6 +102,5 @@ export function transformNode(path, info = {}) {
       dynamic: true
     }
   } else {
-    console.log('none', node)
   }
 }

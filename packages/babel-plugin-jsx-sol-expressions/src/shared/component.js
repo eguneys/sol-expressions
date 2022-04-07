@@ -72,8 +72,9 @@ export default function transformComponent(path) {
               t.blockStatement([t.returnStatement(expr.body)]),
               !t.isValidIdentifier(key)
           ))
-
-        } else { runningObject.push(t.objectProperty(id, value.expression)) }
+        } else { 
+          runningObject.push(t.objectProperty(id, value.expression)) 
+        }
       }
     }
 
@@ -96,7 +97,7 @@ export default function transformComponent(path) {
           t.isExpression(body) ? t.blockStatement([t.returnStatement(body)]): body
         ))
     } else {
-      //runningObject.push(t.objectProperty(t.identifier('children'), childResult[0]))
+      runningObject.push(t.objectProperty(t.identifier('children'), childResult[0]))
     }
   }
 
@@ -143,6 +144,9 @@ function transformComponentChildren(children, config) {
       : t.arrowFunctionExpression([], transformedChildren)
       dynamic = true
     }
+  } else {
+    transformedChildren = t.arrowFunctionExpression([], t.arrayExpression(transformedChildren))
+    dynamic = true
   }
 
   return [transformedChildren, dynamic]

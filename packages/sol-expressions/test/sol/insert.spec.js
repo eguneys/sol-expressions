@@ -21,6 +21,10 @@ describe("r.insert", () => {
     expect(res._children[0]).toBe(child)
   })
 
+  it('can insert nested arrays', () => {
+    expect(insert([new Transform(), [new Transform(), new Transform()]])._flat.length).toBe(4)
+  })
+
   function insert(val) {
     let parent = new Transform()
     r.insert(parent, val)

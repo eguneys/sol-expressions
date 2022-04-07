@@ -3,7 +3,8 @@ import { insert as _$insert } from "r-sol";
 import { createComponent as _$createComponent } from "r-sol";
 
 const _tmpl$ = /*#__PURE__*/ _$template(`<sprite></sprite>`, 2),
-  _tmpl$2 = /*#__PURE__*/ _$template(`<module></module>`, 2);
+  _tmpl$2 = /*#__PURE__*/ _$template(`<module></module>`, 2),
+  _tmpl$3 = /*#__PURE__*/ _$template(`<module><module></module></module>`, 4);
 
 const children = _tmpl$.clone;
 const dynamic = {
@@ -45,3 +46,16 @@ const template21 = _$createComponent(Module, {
     return children();
   },
 });
+
+const tiles = [];
+tiles.push(_tmpl$2.clone);
+
+const template24 = (() => {
+  const _el$7 = _tmpl$2.clone;
+
+  _$insert(_el$7, tiles);
+
+  return _el$7;
+})();
+
+const template25 = _tmpl$3.clone;

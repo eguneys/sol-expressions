@@ -16,3 +16,11 @@ const template4 = (<module children={children}>
 
 const template20 = <module>{children()}</module>
 const template21 = <Module>{children()}</Module>
+
+
+const tiles = []
+tiles.push(<module/>)
+const template24 = <module>{tiles}</module>
+
+
+const template25 = <module><module/></module>

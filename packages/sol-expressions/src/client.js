@@ -1,5 +1,6 @@
 import { Transform } from 'soli2d'
 import { root, effect, memo, createComponent } from 'rxcore'
+import reconcileArrays from './reconcile'
 
 export { effect, memo, createComponent }
 
@@ -55,11 +56,11 @@ function insertExpression(parent, value, current, marker, unwrapArray) {
       current = cleanChildren(parent, current, marker)
       if (multi) return current
     } else if (Array.isArray(current)) {
-      /*
       if (current.length === 0) {
         appendNodes(parent, array, marker)
-      } else reconcileArrays(parent, current, array)
-      */
+      } else {
+        //reconcileArrays(parent, current, array)
+      }
     } else {
       current && cleanChildren(parent)
       appendNodes(parent, array)
@@ -69,6 +70,7 @@ function insertExpression(parent, value, current, marker, unwrapArray) {
     value._set_parent(parent)
   }
 
+  return current
 }
 
 
