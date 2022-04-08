@@ -6,8 +6,16 @@ module.exports = babelJest.createTransformer({
     [
       "babel-plugin-transform-rename-import",
       {
-        original: "rxcore",
-        replacement: __dirname + "/core"
+        replacements: [
+          {
+            original: "rxcore",
+            replacement: __dirname + "/core"
+          },
+          {
+            original: 'ex/soli2d',
+            replacement: 'soli2d'
+          }
+        ]
       }
     ],
     ["babel-plugin-jsx-sol-expressions", { moduleName: "../../src/client" }]

@@ -1,4 +1,4 @@
-import { Transform } from 'soli2d'
+import { Transform } from 'ex/soli2d'
 import { root, effect, memo, createComponent } from 'rxcore'
 import reconcileArrays from './reconcile'
 
