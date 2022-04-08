@@ -23,6 +23,7 @@ describe("r.insert", () => {
 
   it('can insert nested arrays', () => {
     expect(insert([new Transform(), [new Transform(), new Transform()]])._flat.length).toBe(4)
+    expect(insert([new Transform(), [new Transform(), [new Transform()]]])._flat.length).toBe(4)
   })
 
   function insert(val) {
@@ -30,4 +31,46 @@ describe("r.insert", () => {
     r.insert(parent, val)
     return parent
   }
+
+
+  it('can insert changing array of nodes', () => {
+    let parent = new Transform()
+    let n1 = new Transform(),
+      n2 = new Transform(),
+      n3 = new Transform(),
+      n4 = new Transform()
+    let orig = [n1, n2, n3, n4]
+
+    n1.name = 'one'
+    n2.name = 'two'
+    n3.name = 'three'
+    n4.name = 'four'
+
+    let origExpected = expected(orig)
+
+    test([n1, n2, n3, n4])
+    test([    n2, n3, n4])
+    test([        n3, n4])
+    test([            n4])
+
+    test([n1            ])
+    test([    n2        ])
+    test([        n3    ])
+    test([            n4])
+
+
+    function test(array) {
+      let _parent = parent.clone
+      r.insert(parent, array, undefined)
+      expect(parent._flat.map(_ => _.name).join('')).toBe(expected(array))
+
+      parent = _parent
+    }
+
+    function expected(array) {
+      return array.map(_ => _.name).join('')
+    }
+
+  })
+
 })

@@ -9,3 +9,12 @@ const twoComponent = (<>
   <Component/>
   <Component/>
   </>)
+
+
+const three = (<transform>
+  <>
+    <Comp/>
+    <For each={lakjdsf}>{ _ => <Comp/> }</For>
+    <Comp/>
+  </>
+  </transform>)
