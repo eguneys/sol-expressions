@@ -40,6 +40,7 @@ export function insert(parent, accessor, marker, initial) {
 
 function insertExpression(parent, value, current, marker, unwrapArray) {
 
+  while (typeof current === 'function') current = current()
   if (value === current) return current
 
   const t = typeof value,
@@ -110,21 +111,7 @@ function appendNodes(parent, array, marker) {
 }
 
 function cleanChildren(parent, current, marker, replacement) {
-  if (marker === undefined) return (parent._children = [])
+  if (marker === undefined) return (parent._clean_children() && parent._children)
   const node = replacement || []
-  if (current.length) {
-    console.log(current.length)
-    /*
-    let inserted = false
-    for (let i = current.length - 1; i >= 0; i--) {
-      const el = current[i]
-      if (node !== el) {
-        const isParent = el._parent === parent
-        if (!inserted && !i) {
-          isParent ? parent
-        }
-      }
-    }
-    */
-  }
+  if (current.length) { }
 }
