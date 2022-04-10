@@ -45,10 +45,18 @@ function insertExpression(parent, value, current, marker, unwrapArray) {
 
   const t = typeof value,
     multi = marker !== undefined
+  parent = (multi && current[0] && current[0]._parent) || parent
 
   if (value === null) { }
 
-  if (Array.isArray(value)) {
+ if (t === 'function') {
+   effect(() => {
+     let v = value()
+     while (typeof v === 'function') v = v()
+     current = insertExpression(parent, v, current, maker)
+   })
+   return () => current
+  } else if (Array.isArray(value)) {
     const array = []
     if (normalizeIncomingArray(array, value, unwrapArray)) {
       effect(() => (current = insertExpression(parent, array, current, marker, true)))
@@ -68,8 +76,6 @@ function insertExpression(parent, value, current, marker, unwrapArray) {
       appendNodes(parent, array)
     }
     current = array
-  } else if (t === 'function') {
-    console.log('here')
   } else if (value instanceof Transform) {
     value._set_parent(parent)
   }
