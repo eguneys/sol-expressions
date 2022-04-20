@@ -35,7 +35,7 @@ export default function reconcileArrays(parent, a, b) {
     } else if (a[aStart] === b[bEnd - 1] && b[bStart] === a[aEnd - 1]) {
       const node = a[--aEnd]._next_sibling
       parent._insert_before(b[bStart++], a[aStart++]._next_sibling)
-      parent._inesrt_before(b[--bEnd], node)
+      parent._insert_before(b[--bEnd], node)
 
       a[aEnd] = b[bEnd]
     } else {

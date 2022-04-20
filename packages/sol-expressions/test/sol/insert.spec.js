@@ -71,6 +71,7 @@ describe("r.insert", () => {
     test([              ])
 
 
+    debugger
     test([n2, n1, n3, n4])
     test([n3, n2, n1, n4])
     test([n4, n2, n3, n1])
@@ -86,6 +87,7 @@ describe("r.insert", () => {
     function test(array) {
       current = r.insert(parent, array, undefined, current)
       expect(parent._flat.map(_ => _.name).join('')).toBe(expected(array))
+      //console.log(parent, orig, current)
       current = r.insert(parent, orig, undefined, current)
       expect(parent._flat.map(_ => _.name).join('')).toBe(origExpected)
     }
@@ -97,7 +99,7 @@ describe("r.insert", () => {
   })
 
 
-  test.only('insert and remove ordering', () => {
+  test('insert and remove ordering', () => {
     let parent = new Transform()
     let n1 = new Transform(),
       n2 = new Transform(),
