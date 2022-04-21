@@ -8,6 +8,15 @@ const _tmpl$ = /*#__PURE__*/ _$template(`<transform></transform>`, 2),
     4
   );
 
+let t_;
+
+const templateR = (() => {
+  const _el$ = _tmpl$.clone;
+  const _ref$ = t_;
+  typeof _ref$ === "function" ? _ref$(_el$) : (t_ = _el$);
+  return _el$;
+})();
+
 const template3 = _$createComponent(Child, {
   get children() {
     return [_tmpl$.clone, _tmpl$.clone, _tmpl$.clone];
@@ -50,12 +59,12 @@ const template13 = _$createComponent(Component, {
 });
 
 const template60 = (() => {
-  const _el$4 = _tmpl$.clone;
+  const _el$5 = _tmpl$.clone;
 
-  _$insert(_el$4, _$createComponent(Tile, {}), null);
+  _$insert(_el$5, _$createComponent(Tile, {}), null);
 
   _$insert(
-    _el$4,
+    _el$5,
     _$createComponent(For, {
       each: list,
       children: ([no, box]) => _$createComponent(Tile, {}),
@@ -63,16 +72,16 @@ const template60 = (() => {
     null
   );
 
-  _$insert(_el$4, () => props.children, null);
+  _$insert(_el$5, () => props.children, null);
 
-  return _el$4;
+  return _el$5;
 })();
 
 const template61 = (() => {
-  const _el$5 = _tmpl$2.clone;
+  const _el$6 = _tmpl$2.clone;
 
   _$insert(
-    _el$5,
+    _el$6,
     _$createComponent(For, {
       each: list,
       children: (_) => _tmpl$.clone,
@@ -80,5 +89,5 @@ const template61 = (() => {
     null
   );
 
-  return _el$5;
+  return _el$6;
 })();

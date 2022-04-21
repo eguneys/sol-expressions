@@ -266,7 +266,62 @@ function transformAttributes(path, results) {
     let value = node.value,
       key = node.name.name;
 
-    if (key === 'children') {
+    if (key === 'ref') {
+      while (
+        t__namespace.isTSNonNullExpression(value.expression) ||
+        t__namespace.isTSAsExpression(value.expression)
+      ) {
+        value.expression = value.expression.expression;
+      }
+
+      let binding,
+        isFunction =
+        t__namespace.isIdentifier(value.expression) &&
+        (binding = path.scope.getBinding(value.expression.name)) &&
+        binding.kind === 'const';
+      if (!isFunction && t__namespace.isLVal(value.expression)) {
+        const refIdentifier = path.scope.generateUidIdentifier('_ref$');
+        results.exprs.unshift(
+          t__namespace.variableDeclaration('const', [
+            t__namespace.variableDeclarator(refIdentifier, value.expression)
+          ]),
+
+          t__namespace.expressionStatement(
+            t__namespace.conditionalExpression(
+              t__namespace.binaryExpression(
+                '===',
+                t__namespace.unaryExpression('typeof', refIdentifier),
+                t__namespace.stringLiteral('function')
+              ),
+              t__namespace.callExpression(refIdentifier, [elem]),
+              t__namespace.assignmentExpression('=', value.expression, elem)
+            )
+          )
+        );
+      } else if (isFunction || t__namespace.isFunction(value.expression)) {
+        results.exprs.unshift(
+          t__namespace.expressionStatement(t__namespace.callExpression(value.expression, [elem]))
+        );
+      } else if (t__namespace.isCallExpression(value.expression)) {
+        const refIdentifier = path.scope.generateUidIdentifier('_ref$');
+        results.exprs.unshift(
+          t__namespace.variableDeclration('const', [
+            t__namespace.variableDeclration(refIdentifier, value.expression)
+          ]),
+          t__namespace.expressionStatement(
+            t__namespace.logicalExpression(
+              '&&',
+              t__namespace.binaryExpression(
+                '===',
+                t__namespace.unaryExpression('typeof', refIdentifier),
+                t__namespace.stringLiteral('function')
+              ),
+              t__namespace.callExpression(refIdentifier, [elem])
+            )
+          )
+        );
+      }
+    } else if (key === 'children') {
       children = value;
     } else if (config.effectWrapper &&
       isDynamic(attribute.get('value').get('expression'), {

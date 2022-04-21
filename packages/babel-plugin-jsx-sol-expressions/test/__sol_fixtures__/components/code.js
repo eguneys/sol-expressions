@@ -1,3 +1,10 @@
+let t_
+
+const templateR = (
+  <transform ref={t_}/>
+)
+
+
 const template3 = (
   <Child>
     <transform/>

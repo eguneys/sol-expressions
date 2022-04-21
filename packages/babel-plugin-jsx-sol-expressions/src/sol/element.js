@@ -61,7 +61,62 @@ function transformAttributes(path, results) {
     let value = node.value,
       key = node.name.name
 
-    if (key === 'children') {
+    if (key === 'ref') {
+      while (
+        t.isTSNonNullExpression(value.expression) ||
+        t.isTSAsExpression(value.expression)
+      ) {
+        value.expression = value.expression.expression
+      }
+
+      let binding,
+        isFunction =
+        t.isIdentifier(value.expression) &&
+        (binding = path.scope.getBinding(value.expression.name)) &&
+        binding.kind === 'const'
+      if (!isFunction && t.isLVal(value.expression)) {
+        const refIdentifier = path.scope.generateUidIdentifier('_ref$')
+        results.exprs.unshift(
+          t.variableDeclaration('const', [
+            t.variableDeclarator(refIdentifier, value.expression)
+          ]),
+
+          t.expressionStatement(
+            t.conditionalExpression(
+              t.binaryExpression(
+                '===',
+                t.unaryExpression('typeof', refIdentifier),
+                t.stringLiteral('function')
+              ),
+              t.callExpression(refIdentifier, [elem]),
+              t.assignmentExpression('=', value.expression, elem)
+            )
+          )
+        )
+      } else if (isFunction || t.isFunction(value.expression)) {
+        results.exprs.unshift(
+          t.expressionStatement(t.callExpression(value.expression, [elem]))
+        )
+      } else if (t.isCallExpression(value.expression)) {
+        const refIdentifier = path.scope.generateUidIdentifier('_ref$')
+        results.exprs.unshift(
+          t.variableDeclration('const', [
+            t.variableDeclration(refIdentifier, value.expression)
+          ]),
+          t.expressionStatement(
+            t.logicalExpression(
+              '&&',
+              t.binaryExpression(
+                '===',
+                t.unaryExpression('typeof', refIdentifier),
+                t.stringLiteral('function')
+              ),
+              t.callExpression(refIdentifier, [elem])
+            )
+          )
+        )
+      }
+    } else if (key === 'children') {
       children = value
     } else if (config.effectWrapper &&
       isDynamic(attribute.get('value').get('expression'), {
