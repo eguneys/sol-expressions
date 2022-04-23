@@ -47,13 +47,13 @@ function insertExpression(parent, value, current, marker, unwrapArray) {
     multi = marker !== undefined
   parent = (multi && current[0] && current[0]._parent) || parent
 
-  if (value === null) { }
-
- if (t === 'function') {
+  if (value === null || value === undefined) {
+    current = cleanChildren(parent, current, marker)
+  } else if (t === 'function') {
    effect(() => {
      let v = value()
      while (typeof v === 'function') v = v()
-     current = insertExpression(parent, v, current, maker)
+     current = insertExpression(parent, v, current, marker)
    })
    return () => current
   } else if (Array.isArray(value)) {
