@@ -125,5 +125,17 @@ function appendNodes(parent, array, marker) {
 function cleanChildren(parent, current, marker, replacement) {
   if (marker === undefined) return (parent._clean_children() && parent._children)
   const node = replacement || []
-  if (current.length) { }
+  if (current.length) { 
+    let inserted = false
+    for (let i = current.length - 1; i >= 0; i--) {
+      const el = current[i]
+      if (node !== el) {
+        const isParent = el._parent === parent
+        if (!inserted && !i)
+          isParent ? parent._replace_child(node, el) : parent._insert_before(node, marker)
+        else isParent && el._remove()
+      } else inserted = true
+    }
+  } else parent._insert_before(node, marker)
+  return [node]
 }
